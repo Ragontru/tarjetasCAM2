@@ -19,7 +19,112 @@
     </ion-row>
     <form [formGroup]='formulario' (ngSumbit)="onSumnit(formulario.value)">
       <div formGroupName="grupoDatos">
+        <!-- Primera fila-->
+        <ion-row>
+          <ion-col>
+            <ion-text>Número de tarjeta:</ion-text>
+            <ion-input formControlName="numTarjeta"></ion-input>
+          </ion-col>
+          <!-- Validación número de tarjeta -->
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.numTarjeta">
+              <div class="error-message"
+                *ngIf="formulario.get('grupoDatos').get('numTarjeta').hasError(validation.type) && 
+              formulario.get('grupoDatos').get('numTarjeta').dirty || formulario.get('grupoDatos').get('numTarjeta').touched">
+                <ion-icon name="information-circle-outline"></ion-icon> {{validation.message}}
+              </div>
+            </ng-container>
+          </div>
+        </ion-row>
         
+        
+        <!-- Segunda fila-->
+        <ion-row>
+          <ion-col>
+            <ion-text>Expira:</ion-text>
+            <ion-input type="text" placeholder="MM/AA" class="expira" formControlName="expira"></ion-input>
+          <!-- Validación expira-->
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.expira">
+              <div class="error-message"
+                *ngIf="formulario.get('grupoDatos').get('expira').hasError(validation.type) && 
+              formulario.get('grupoDatos').get('expira').dirty || formulario.get('grupoDatos').get('expira').touched">
+                <ion-icon name="information-circle-outline"></ion-icon> {{validation.message}}
+              </div>
+            </ng-container>
+          </div>
+          </ion-col>
+
+        <ion-col>
+        </ion-col>
+        
+        <ion-col>
+          <ion-text>CCV:</ion-text>
+          <ion-input type="password" maxlength="3" class="ccv" formControlName="ccv"></ion-input>
+          <!-- Validación expira-->
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.expira">
+              <div class="error-message"
+                *ngIf="formulario.get('grupoDatos').get('password').hasError(validation.type) && 
+              formulario.get('grupoDatos').get('password').dirty || formulario.get('grupoDatos').get('password').touched">
+                <ion-icon name="information-circle-outline"></ion-icon> {{validation.message}}
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <!-- Tercera fila-->
+      <ion-row>
+        <ion-col>
+          <ion-text>Tipo de tarjeta: </ion-text>
+          <ion-select formControlName="tipo">
+            <ion-select-option *ngFor="let tipo of tipos | keyvalue">{{tipo.key}}
+            </ion-select-option>
+          </ion-select>
+          <!-- Validacion tipo de tarjeta-->
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.expira">
+              <div class="error-message"
+                *ngIf="formulario.get('grupoDatos').get('tipo').hasError(validation.type) &&
+              formulario.get('grupoDatos').get('tipo').dirty || formulario.get('grupoDatos').get('tipo').touched">
+                <ion-icon name="information-circle-outline"></ion-icon> {{validation.message}}
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+
+        <ion-col>
+          <ion-text style="float: left">C.Prom.: </ion-text>
+          <br>
+          <ion-checkbox formControlName="clientePromocional"></ion-checkbox>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+
+        </ion-col>
+        <ion-col>
+
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+
+        </ion-col>
+        <ion-col>
+          <ion-button color="danger" class="botonBorrar" (click)="clickBorrar()">Borrar</ion-button>
+
+        </ion-col>
+        <ion-col>
+          <ion-button color="success" class="botonAceptar" [disabled]="!formulario.valid" (click)="clickAceptar()">
+            Aceptar</ion-button>
+        </ion-col>
+      </ion-row>
+
+
       </div>
     </form>
   </ion-grid>
